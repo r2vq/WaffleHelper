@@ -1,0 +1,48 @@
+body {
+  background: #000000;
+  color: #ffffff;
+}
+
+.board {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+  height: 100vh;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+  justify-content: center;
+}
+
+.cell {
+  align-items: center;
+  border-radius: 2vw;
+  display: inline-flex;
+  height: 15vw;
+  justify-content: center;
+  width: 15vw;
+}
+
+.letter {
+  background: #323434;
+  color: #f6f7f8;
+  font-family: sans-serif;
+  font-size: 10vw;
+}
+
+.green {
+  background: #6fb05c;
+}
+
+.yellow {
+  background: #e9ba3a;
+}
+
+.selected {
+  background: #ff9999 !important;
+}
