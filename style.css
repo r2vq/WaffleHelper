@@ -12,7 +12,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1vw;
-  height: 100vh;
+  height: 75vh;
+  justify-content: center;
+}
+
+.minimap {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+  height: 25vh;
   justify-content: center;
 }
 
@@ -23,20 +32,36 @@ body {
   justify-content: center;
 }
 
+.board .cell {
+  border-radius: 2vw;
+  height: 15vw;
+  width: 15vw;
+}
+
+.minimap .cell {
+  border-radius: 1vw;
+  height: 5vw;
+  width: 5vw;
+}
+
 .cell {
   align-items: center;
-  border-radius: 2vw;
   display: inline-flex;
-  height: 15vw;
   justify-content: center;
-  width: 15vw;
+}
+
+.board .letter {
+  font-size: 10vw;
+}
+
+.minimap .letter {
+  font-size: 2vh;
 }
 
 .letter {
   background: #323434;
   color: #f6f7f8;
   font-family: sans-serif;
-  font-size: 10vw;
 }
 
 .green {
