@@ -1,6 +1,10 @@
 body {
   background: #000000;
   color: #ffffff;
+  margin: 0;
+  overscroll-behavior-y: contain;
+  position: fixed;
+  width: 100vw;
 }
 
 .board {
