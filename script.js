@@ -21,7 +21,6 @@ function loadXMLDoc(url) {
 }
 
 function loadData() {
-  console.log("loading... don't refresh!");
   let api = "https://us-central1-waffle-helper.cloudfunctions.net/waffle";
   loadXMLDoc(api)
     .then((data) => {
@@ -33,10 +32,10 @@ function loadData() {
 }
 
 function loadBoard(data) {
+  let body = document.querySelector("body");
   if (data.length) {
     let maxRow = 5;
     let currentRow = 5;
-    let body = document.querySelector("body");
     let board = document.createElement("div");
     board.classList.add("board");
     let minimap = document.createElement("div");
