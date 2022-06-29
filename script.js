@@ -25,6 +25,8 @@ function loadData() {
   loadXMLDoc(api)
     .then((data) => {
       loadBoard(data);
+      localStorage.setItem("data", JSON.stringify(data));
+      localStorage.setItem("date", (new Date()).toDateString());
     })
     .catch((error) => {
       console.log(error);
@@ -126,4 +128,15 @@ function onItemClick(e) {
   }
 }
 
-loadData();
+function loadDataOrCache() {
+  let today = (new Date()).toDateString();
+  let cacheDate = localStorage.getItem("date");
+
+  if (!cacheDate || today != cacheDate) {
+    loadData();
+  } else {
+    loadBoard(JSON.parse(localStorage.getItem("data")));
+  }
+}
+
+loadDataOrCache();
