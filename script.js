@@ -21,7 +21,7 @@ function loadXMLDoc(url) {
 }
 
 function loadData() {
-  console.log("loading...");
+  console.log("loading... don't refresh!");
   let api = "https://us-central1-waffle-helper.cloudfunctions.net/waffle";
   loadXMLDoc(api)
     .then((data) => {
@@ -33,50 +33,54 @@ function loadData() {
 }
 
 function loadBoard(data) {
-  let maxRow = 5;
-  let currentRow = 5;
-  let body = document.querySelector("body");
-  body.innerHTML = "";
-  let board = document.createElement("div");
-  board.classList.add("board");
-  let row;
-  for (let i = 0; i < data.length; i++) {
-    if (currentRow >= maxRow) {
-      row = document.createElement("div");
-      row.classList.add("row");
-      board.appendChild(row);
-      currentRow = 0;
-    }
-    switch(i) {
-      case 6:
-      case 7:
-      case 14:
-      case 15:
-      let space = document.createElement("div");
-      space.innerHTML = "&nbsp;";
-      space.classList.add("cell");
-      space.classList.add("space");
-      row.appendChild(space);
+  if (data.length) {
+    let maxRow = 5;
+    let currentRow = 5;
+    let body = document.querySelector("body");
+    let board = document.createElement("div");
+    board.classList.add("board");
+    let row;
+    for (let i = 0; i < data.length; i++) {
+      if (currentRow >= maxRow) {
+        row = document.createElement("div");
+        row.classList.add("row");
+        board.appendChild(row);
+        currentRow = 0;
+      }
+      switch (i) {
+        case 6:
+        case 7:
+        case 14:
+        case 15:
+          let space = document.createElement("div");
+          space.innerHTML = "&nbsp;";
+          space.classList.add("cell");
+          space.classList.add("space");
+          row.appendChild(space);
+          currentRow += 1;
+          break;
+      }
+      let item = data[i];
+      let cell = document.createElement("div");
+      cell.innerText = item.letter;
+      cell.classList.add("cell");
+      cell.classList.add("letter");
+      if (item.green) {
+        cell.classList.add("green");
+      } else if (item.yellow) {
+        cell.classList.add("yellow");
+      }
+      if (!item.green) {
+        cell.addEventListener("click", onItemClick);
+      }
+      row.appendChild(cell);
       currentRow += 1;
-      break;
     }
-    let item = data[i];
-    let cell = document.createElement("div");
-    cell.innerText = item.letter;
-    cell.classList.add("cell");
-    cell.classList.add("letter");
-    if (item.green) {
-      cell.classList.add("green");
-    } else if (item.yellow) {
-      cell.classList.add("yellow");
-    }
-    if (!item.green) {
-      cell.addEventListener("click", onItemClick);
-    }
-    row.appendChild(cell);
-    currentRow += 1;
+    body.innerHTML = "";
+    body.appendChild(board);
+  } else {
+    body.innerHTML = "Something went wrong. Try refreshing.";
   }
-  body.appendChild(board);
 }
 
 let selected;
