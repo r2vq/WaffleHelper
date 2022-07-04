@@ -98,6 +98,7 @@ function loadBoard(data) {
       minirow.appendChild(minicell);
       currentRow += 1;
     }
+    minimap.addEventListener("click", loadDataOrCache);
     body.innerHTML = "";
     body.appendChild(minimap);
     body.appendChild(board);
