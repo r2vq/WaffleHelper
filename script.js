@@ -26,7 +26,6 @@ function loadData() {
     .then((data) => {
       loadBoard(data);
       localStorage.setItem("data", JSON.stringify(data));
-      localStorage.setItem("date", (new Date()).toDateString());
     })
     .catch((error) => {
       console.log(error);
@@ -105,6 +104,11 @@ function loadBoard(data) {
   } else {
     body.innerHTML = "Something went wrong. Try refreshing.";
   }
+  let refreshButton = document.createElement("div");
+  refreshButton.innerText = "Force Refresh";
+  refreshButton.classList.add("refresh");
+  refreshButton.addEventListener("click", onRefreshClick);
+  body.appendChild(refreshButton);
 }
 
 let selected;
@@ -128,14 +132,20 @@ function onItemClick(e) {
   }
 }
 
-function loadDataOrCache() {
-  let today = (new Date()).toDateString();
-  let cacheDate = localStorage.getItem("date");
+function onRefreshClick(e) {
+  localStorage.removeItem("data");
+  loadDataOrCache();
+}
 
-  if (!cacheDate || today != cacheDate) {
+function loadDataOrCache() {
+  let data = localStorage.getItem("data");
+
+  if (!data) {
+    let body = document.querySelector("body");
+    body.innerHTML = "Loading... do not refresh";
     loadData();
   } else {
-    loadBoard(JSON.parse(localStorage.getItem("data")));
+    loadBoard(JSON.parse(data));
   }
 }
 

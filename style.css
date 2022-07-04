@@ -1,6 +1,9 @@
 body {
+  align-items: center;
   background: #000000;
   color: #ffffff;
+  display: flex;
+  flex-direction: column;
   margin: 0;
   overscroll-behavior-y: contain;
   position: fixed;
@@ -12,7 +15,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1vw;
-  height: 75vh;
+  height: 65vh;
   justify-content: center;
 }
 
@@ -23,6 +26,16 @@ body {
   gap: 1vw;
   height: 25vh;
   justify-content: center;
+}
+
+.refresh {
+  background: #222222;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  display: inline-flex;
+  font-family: monospace;
+  padding: 15px;
+  text-transform: uppercase;
 }
 
 .row {
