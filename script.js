@@ -136,8 +136,11 @@ function onItemClick(e) {
 }
 
 function onRefreshClick(e) {
-  localStorage.removeItem("data");
-  loadDataOrCache();
+  let refresh = confirm("Refresh data from server? Don't do this too often.");
+  if (refresh) {
+    localStorage.removeItem("data");
+    loadDataOrCache();
+  }
 }
 
 function loadDataOrCache() {
