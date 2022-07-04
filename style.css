@@ -4,6 +4,8 @@ body {
   color: #ffffff;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  justify-content: space-around;
   margin: 0;
   overscroll-behavior-y: contain;
   position: fixed;
@@ -15,7 +17,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1vw;
-  height: 65vh;
   justify-content: center;
 }
 
@@ -24,7 +25,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1vw;
-  height: 25vh;
   justify-content: center;
 }
 
