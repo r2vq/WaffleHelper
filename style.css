@@ -77,6 +77,10 @@ body {
   font-family: sans-serif;
 }
 
+.blue {
+  background: #3a6fb0;
+}
+
 .green {
   background: #6fb05c;
 }

@@ -125,7 +125,9 @@ function onItemClick(e) {
   } else {
     selected.classList.remove("selected");
     cell.classList.remove("yellow");
+    cell.classList.add("blue");
     selected.classList.remove("yellow");
+    selected.classList.add("blue");
     let storage = selected.innerText;
     selected.innerText = cell.innerText;
     cell.innerText = storage;
