@@ -1,3 +1,11 @@
+function createElement(type) {
+  return document.createElement(type);
+}
+
+function findElement(selector) {
+  return document.querySelector(selector);
+}
+
 function loadXMLDoc(url) {
   return new Promise((resolve, reject) => {
 
@@ -33,23 +41,23 @@ function loadData() {
 }
 
 function loadBoard(data) {
-  let body = document.querySelector("body");
+  let body = findElement("body");
   if (data.length) {
     let maxRow = 5;
     let currentRow = 5;
-    let board = document.createElement("div");
+    let board = createElement("div");
     board.classList.add("board");
-    let minimap = document.createElement("div");
+    let minimap = createElement("div");
     minimap.classList.add("minimap");
     let row;
     let minirow;
     for (let i = 0; i < data.length; i++) {
       if (currentRow >= maxRow) {
-        row = document.createElement("div");
+        row = createElement("div");
         row.classList.add("row");
         board.appendChild(row);
 
-        minirow = document.createElement("div");
+        minirow = createElement("div");
         minirow.classList.add("row");
         minimap.appendChild(minirow);
 
@@ -60,13 +68,13 @@ function loadBoard(data) {
         case 7:
         case 14:
         case 15:
-          let space = document.createElement("div");
+          let space = createElement("div");
           space.innerHTML = "&nbsp;";
           space.classList.add("cell");
           space.classList.add("space");
           row.appendChild(space);
 
-          let minispace = document.createElement("div");
+          let minispace = createElement("div");
           minispace.innerHTML = "&nbsp;";
           minispace.classList.add("cell");
           minispace.classList.add("space");
@@ -76,11 +84,11 @@ function loadBoard(data) {
           break;
       }
       let item = data[i];
-      let cell = document.createElement("div");
+      let cell = createElement("div");
       cell.innerText = item.letter;
       cell.classList.add("cell");
       cell.classList.add("letter");
-      let minicell = document.createElement("div");
+      let minicell = createElement("div");
       minicell.innerText = item.letter;
       minicell.classList.add("cell");
       minicell.classList.add("letter");
@@ -105,7 +113,7 @@ function loadBoard(data) {
   } else {
     body.innerHTML = "Something went wrong. Try refreshing.";
   }
-  let refreshButton = document.createElement("div");
+  let refreshButton = createElement("div");
   refreshButton.innerText = "Force Refresh";
   refreshButton.classList.add("refresh");
   refreshButton.addEventListener("click", onRefreshClick);
@@ -147,7 +155,7 @@ function loadDataOrCache() {
   let data = localStorage.getItem("data");
 
   if (!data) {
-    let body = document.querySelector("body");
+    let body = findElement("body");
     body.innerHTML = "Loading... do not refresh";
     loadData();
   } else {
