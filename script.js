@@ -80,21 +80,21 @@ function loadBoard(data) {
   if (data.length) {
     let maxRow = 5;
     let currentRow = 5;
-    let board = createElement("div");
-    board.addClass("board");
-    let minimap = createElement("div");
-    minimap.addClass("minimap");
+    let board = createElement("div")
+      .addClass("board");
+    let minimap = createElement("div")
+      .addClass("minimap");
     let row;
     let minirow;
     for (let i = 0; i < data.length; i++) {
       if (currentRow >= maxRow) {
-        row = createElement("div");
-        row.addClass("row");
-        row.addToParent(board);
+        row = createElement("div")
+          .addClass("row")
+          .addToParent(board);
 
-        minirow = createElement("div");
-        minirow.addClass("row");
-        minirow.addToParent(minimap);
+        minirow = createElement("div")
+          .addClass("row")
+          .addToParent(minimap);
 
         currentRow = 0;
       }
@@ -103,30 +103,30 @@ function loadBoard(data) {
         case 7:
         case 14:
         case 15:
-          let space = createElement("div");
-          space.setInnerHtml("&nbsp;");
-          space.addClass("cell");
-          space.addClass("space");
-          space.addToParent(row);
+          createElement("div")
+            .setInnerHtml("&nbsp;")
+            .addClass("cell")
+            .addClass("space")
+            .addToParent(row);
 
-          let minispace = createElement("div");
-          minispace.setInnerHtml("&nbsp;");
-          minispace.addClass("cell");
-          minispace.addClass("space");
-          minispace.addToParent(minirow);
+          createElement("div")
+            .setInnerHtml("&nbsp;")
+            .addClass("cell")
+            .addClass("space")
+            .addToParent(minirow);
 
           currentRow += 1;
           break;
       }
       let item = data[i];
-      let cell = createElement("div");
-      cell.setInnerText(item.letter);
-      cell.addClass("cell");
-      cell.addClass("letter");
-      let minicell = createElement("div");
-      minicell.setInnerText(item.letter);
-      minicell.addClass("cell");
-      minicell.addClass("letter");
+      let cell = createElement("div")
+        .setInnerText(item.letter)
+        .addClass("cell")
+        .addClass("letter");
+      let minicell = createElement("div")
+        .setInnerText(item.letter)
+        .addClass("cell")
+        .addClass("letter");
       if (item.green) {
         cell.addClass("green");
         minicell.addClass("green");
@@ -142,17 +142,17 @@ function loadBoard(data) {
       currentRow += 1;
     }
     minimap.on("click", loadDataOrCache);
-    body.setInnerHtml("");
-    body.addChild(minimap);
-    body.addChild(board);
+    body.setInnerHtml("")
+      .addChild(minimap)
+      .addChild(board);
   } else {
     body.setInnerHtml("Something went wrong. Try refreshing.");
   }
-  let refreshButton = createElement("div");
-  refreshButton.setInnerText("Force Refresh");
-  refreshButton.addClass("refresh");
-  refreshButton.on("click", onRefreshClick);
-  refreshButton.addToParent(body);
+  createElement("div")
+    .setInnerText("Force Refresh")
+    .addClass("refresh")
+    .on("click", onRefreshClick)
+    .addToParent(body);
 }
 
 let selected;
@@ -167,10 +167,10 @@ function onItemClick(e) {
     selected = undefined;
   } else {
     selected.removeClass("selected");
-    cell.removeClass("yellow");
-    cell.addClass("blue");
-    selected.removeClass("yellow");
-    selected.addClass("blue");
+    cell.removeClass("yellow")
+      .addClass("blue");
+    selected.removeClass("yellow")
+      .addClass("blue");
     let storage = selected.innerText;
     selected.setInnerText(cell.innerText);
     cell.setInnerText(storage);
