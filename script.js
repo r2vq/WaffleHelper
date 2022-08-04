@@ -8,6 +8,16 @@ HTMLElement.prototype.removeClass = function(className) {
   return this;
 }
 
+HTMLElement.prototype.setInnerText = function(text) {
+  this.innerText = text;
+  return this;
+}
+
+HTMLElement.prototype.setInnerHtml = function(html) {
+  this.innerHTML = html;
+  return this;
+}
+
 function createElement(type) {
   return document.createElement(type);
 }
@@ -79,13 +89,13 @@ function loadBoard(data) {
         case 14:
         case 15:
           let space = createElement("div");
-          space.innerHTML = "&nbsp;";
+          space.setInnerHtml("&nbsp;");
           space.addClass("cell");
           space.addClass("space");
           row.appendChild(space);
 
           let minispace = createElement("div");
-          minispace.innerHTML = "&nbsp;";
+          minispace.setInnerHtml("&nbsp;");
           minispace.addClass("cell");
           minispace.addClass("space");
           minirow.appendChild(minispace);
@@ -95,11 +105,11 @@ function loadBoard(data) {
       }
       let item = data[i];
       let cell = createElement("div");
-      cell.innerText = item.letter;
+      cell.setInnerText(item.letter);
       cell.addClass("cell");
       cell.addClass("letter");
       let minicell = createElement("div");
-      minicell.innerText = item.letter;
+      minicell.setInnerText(item.letter);
       minicell.addClass("cell");
       minicell.addClass("letter");
       if (item.green) {
@@ -117,14 +127,14 @@ function loadBoard(data) {
       currentRow += 1;
     }
     minimap.addEventListener("click", loadDataOrCache);
-    body.innerHTML = "";
+    body.setInnerHtml("");
     body.appendChild(minimap);
     body.appendChild(board);
   } else {
-    body.innerHTML = "Something went wrong. Try refreshing.";
+    body.setInnerHtml("Something went wrong. Try refreshing.");
   }
   let refreshButton = createElement("div");
-  refreshButton.innerText = "Force Refresh";
+  refreshButton.setInnerText("Force Refresh");
   refreshButton.addClass("refresh");
   refreshButton.addEventListener("click", onRefreshClick);
   body.appendChild(refreshButton);
@@ -147,8 +157,8 @@ function onItemClick(e) {
     selected.removeClass("yellow");
     selected.addClass("blue");
     let storage = selected.innerText;
-    selected.innerText = cell.innerText;
-    cell.innerText = storage;
+    selected.setInnerText(cell.innerText);
+    cell.setInnerText(storage);
     selected = undefined;
   }
 }
@@ -166,7 +176,7 @@ function loadDataOrCache() {
 
   if (!data) {
     let body = findElement("body");
-    body.innerHTML = "Loading... do not refresh";
+    body.setInnerHtml("Loading... do not refresh");
     loadData();
   } else {
     loadBoard(JSON.parse(data));
