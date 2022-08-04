@@ -20,6 +20,22 @@ body {
   justify-content: center;
 }
 
+.button {
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  display: inline-flex;
+  font-family: monospace;
+  padding: 15px;
+  text-transform: uppercase;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
 .minimap {
   align-items: center;
   display: flex;
@@ -29,13 +45,11 @@ body {
 }
 
 .refresh {
-  background: #222222;
-  border: 1px solid #ffffff;
-  border-radius: 5px;
-  display: inline-flex;
-  font-family: monospace;
-  padding: 15px;
-  text-transform: uppercase;
+  background: #ff9999;
+}
+
+.reset {
+  background: #3a6fb0;
 }
 
 .row {

@@ -148,11 +148,24 @@ function loadBoard(data) {
   } else {
     body.setInnerHtml("Something went wrong. Try refreshing.");
   }
-  createElement("div")
-    .setInnerText("Force Refresh")
-    .addClass("refresh")
-    .on("click", onRefreshClick)
+
+  let buttons = createElement("div")
+    .addClass("buttons")
     .addToParent(body);
+
+  createElement("div")
+    .setInnerText("New Game")
+    .addClass("refresh")
+    .addClass("button")
+    .on("click", onRefreshClick)
+    .addToParent(buttons);
+
+  createElement("div")
+    .setInnerText("Reset")
+    .addClass("reset")
+    .addClass("button")
+    .on("click", loadDataOrCache)
+    .addToParent(buttons);
 }
 
 let selected;
