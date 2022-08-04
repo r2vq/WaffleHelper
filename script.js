@@ -18,6 +18,16 @@ HTMLElement.prototype.setInnerHtml = function(html) {
   return this;
 }
 
+HTMLElement.prototype.addChild = function(child) {
+  this.appendChild(child);
+  return this;
+}
+
+HTMLElement.prototype.addToParent = function(parent) {
+  parent.appendChild(this);
+  return this;
+}
+
 function createElement(type) {
   return document.createElement(type);
 }
@@ -75,11 +85,11 @@ function loadBoard(data) {
       if (currentRow >= maxRow) {
         row = createElement("div");
         row.addClass("row");
-        board.appendChild(row);
+        row.addToParent(board);
 
         minirow = createElement("div");
         minirow.addClass("row");
-        minimap.appendChild(minirow);
+        minirow.addToParent(minimap);
 
         currentRow = 0;
       }
@@ -92,13 +102,13 @@ function loadBoard(data) {
           space.setInnerHtml("&nbsp;");
           space.addClass("cell");
           space.addClass("space");
-          row.appendChild(space);
+          space.addToParent(row);
 
           let minispace = createElement("div");
           minispace.setInnerHtml("&nbsp;");
           minispace.addClass("cell");
           minispace.addClass("space");
-          minirow.appendChild(minispace);
+          minispace.addToParent(minirow);
 
           currentRow += 1;
           break;
@@ -122,14 +132,14 @@ function loadBoard(data) {
       if (!item.green) {
         cell.addEventListener("click", onItemClick);
       }
-      row.appendChild(cell);
-      minirow.appendChild(minicell);
+      cell.addToParent(row);
+      minicell.addToParent(minirow);
       currentRow += 1;
     }
     minimap.addEventListener("click", loadDataOrCache);
     body.setInnerHtml("");
-    body.appendChild(minimap);
-    body.appendChild(board);
+    body.addChild(minimap);
+    body.addChild(board);
   } else {
     body.setInnerHtml("Something went wrong. Try refreshing.");
   }
@@ -137,7 +147,7 @@ function loadBoard(data) {
   refreshButton.setInnerText("Force Refresh");
   refreshButton.addClass("refresh");
   refreshButton.addEventListener("click", onRefreshClick);
-  body.appendChild(refreshButton);
+  refreshButton.addToParent(body);
 }
 
 let selected;
