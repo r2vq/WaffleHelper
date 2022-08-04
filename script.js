@@ -28,6 +28,11 @@ HTMLElement.prototype.addToParent = function(parent) {
   return this;
 }
 
+HTMLElement.prototype.on = function(eventName, callback) {
+  this.addEventListener(eventName, callback);
+  return this;
+}
+
 function createElement(type) {
   return document.createElement(type);
 }
@@ -130,13 +135,13 @@ function loadBoard(data) {
         minicell.addClass("yellow");
       }
       if (!item.green) {
-        cell.addEventListener("click", onItemClick);
+        cell.on("click", onItemClick);
       }
       cell.addToParent(row);
       minicell.addToParent(minirow);
       currentRow += 1;
     }
-    minimap.addEventListener("click", loadDataOrCache);
+    minimap.on("click", loadDataOrCache);
     body.setInnerHtml("");
     body.addChild(minimap);
     body.addChild(board);
@@ -146,7 +151,7 @@ function loadBoard(data) {
   let refreshButton = createElement("div");
   refreshButton.setInnerText("Force Refresh");
   refreshButton.addClass("refresh");
-  refreshButton.addEventListener("click", onRefreshClick);
+  refreshButton.on("click", onRefreshClick);
   refreshButton.addToParent(body);
 }
 
