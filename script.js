@@ -8,6 +8,19 @@ HTMLElement.prototype.removeClass = function(className) {
   return this;
 }
 
+HTMLElement.prototype.isClass = function(className) {
+  return this.classList.contains(className);
+}
+
+HTMLElement.prototype.setData = function(dataKey, dataVal) {
+  this.dataset[dataKey] = dataVal;
+  return this;
+}
+
+HTMLElement.prototype.getData = function(dataKey) {
+  return this.dataset[dataKey];
+}
+
 HTMLElement.prototype.setInnerText = function(text) {
   this.innerText = text;
   return this;
@@ -40,6 +53,19 @@ function createElement(type) {
 function findElement(selector) {
   return document.querySelector(selector);
 }
+
+function findElements(selector) {
+  return document.querySelectorAll(selector);
+}
+
+let colourNames = [
+  "red",
+  "orange",
+  "cyan",
+  "indigo",
+  "purple",
+  "grey",
+];
 
 function loadXMLDoc(url) {
   return new Promise((resolve, reject) => {
@@ -149,6 +175,20 @@ function loadBoard(data) {
     body.setInnerHtml("Something went wrong. Try refreshing.");
   }
 
+  let colours = createElement("div")
+    .addClass("colours")
+    .addClass("hidden")
+    .addToParent(body);
+
+  colourNames.forEach(colour => createElement("div")
+    .addClass("colour")
+    .addClass(colour)
+    .setData("colour", colour)
+    .setInnerHtml("&nbsp;")
+    .on("click", onColourClick)
+    .addToParent(colours)
+  );
+
   let buttons = createElement("div")
     .addClass("buttons")
     .addToParent(body);
@@ -166,28 +206,65 @@ function loadBoard(data) {
     .addClass("button")
     .on("click", loadDataOrCache)
     .addToParent(buttons);
+
+  createElement("div")
+    .setInnerText("Colour")
+    .addClass("recolour-off")
+    .addClass("button")
+    .on("click", setColourMode)
+    .addToParent(buttons);
 }
 
 let selected;
+let selectedColour;
+let isColourMode = false;
 
 function onItemClick(e) {
   let cell = e.target;
-  if (!selected) {
-    cell.addClass("selected");
-    selected = cell;
-  } else if (selected === cell) {
-    selected.removeClass("selected");
-    selected = undefined;
+  if (isColourMode && selectedColour) {
+    let current = selectedColour.getData("colour");
+    if (cell.isClass(current)) {
+      cell.removeClass(current);
+    } else {
+      colourNames.forEach(i => {
+        if (current == i) {
+          cell.addClass(current);
+        } else {
+          cell.removeClass(i);
+        }
+      });
+    }
   } else {
-    selected.removeClass("selected");
-    cell.removeClass("yellow")
-      .addClass("blue");
-    selected.removeClass("yellow")
-      .addClass("blue");
-    let storage = selected.innerText;
-    selected.setInnerText(cell.innerText);
-    cell.setInnerText(storage);
-    selected = undefined;
+    if (!selected) {
+      cell.addClass("selected");
+      selected = cell;
+    } else if (selected === cell) {
+      selected.removeClass("selected");
+      selected = undefined;
+    } else {
+      selected.removeClass("selected");
+      cell.removeClass("yellow")
+        .addClass("blue");
+      selected.removeClass("yellow")
+        .addClass("blue");
+      let storage = selected.innerText;
+      selected.setInnerText(cell.innerText);
+      cell.setInnerText(storage);
+      selected = undefined;
+    }
+  }
+}
+
+function onColourClick(e) {
+  let button = e.target;
+  if (selectedColour) {
+    selectedColour.removeClass("colour-selected");
+  }
+  if (button == selectedColour) {
+    selectedColour = undefined;
+  } else {
+    button.addClass("colour-selected");
+    selectedColour = button;
   }
 }
 
@@ -196,6 +273,21 @@ function onRefreshClick(e) {
   if (refresh) {
     localStorage.removeItem("data");
     loadDataOrCache();
+  }
+}
+
+function setColourMode(e) {
+  isColourMode = !isColourMode;
+  let button = e.target;
+  if (isColourMode) {
+    findElement(".colours").removeClass("hidden");
+    button.removeClass("recolour-off")
+      .addClass("recolour-on");
+  } else {
+    findElement(".colours").addClass("hidden");
+    button.removeClass("recolour-on")
+      .addClass("recolour-off");
+    findElements(".board .letter").forEach(cell => colourNames.forEach(colour => cell.removeClass(colour)));
   }
 }
 

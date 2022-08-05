@@ -36,12 +36,42 @@ body {
   width: 100%;
 }
 
+.colour {
+  border-radius: 5vw;
+  display: inline-block;
+  height: 10vw;
+  width: 10vw;
+}
+
+.colour-selected {
+  border: 2px solid #ffffff;
+}
+
+.colours {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.colours.hidden {
+  visibility: hidden;
+}
+
 .minimap {
   align-items: center;
   display: flex;
   flex-direction: column;
   gap: 1vw;
   justify-content: center;
+}
+
+.recolour-off {
+  background: #666666;
+}
+
+.recolour-on {
+  background: #6fb05c;
 }
 
 .refresh {
@@ -95,8 +125,32 @@ body {
   background: #3a6fb0;
 }
 
+.cyan {
+  background: #33bbff !important;
+}
+
 .green {
   background: #6fb05c;
+}
+
+.grey {
+  background: #666666 !important;
+}
+
+.indigo {
+  background: #440066 !important;
+}
+
+.orange {
+  background: #ff9900 !important;
+}
+
+.purple {
+  background: #ba3aba !important;
+}
+
+.red {
+  background: #ff6666 !important;
 }
 
 .yellow {
